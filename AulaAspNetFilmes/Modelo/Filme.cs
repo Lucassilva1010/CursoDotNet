@@ -20,8 +20,7 @@ namespace AulaAspNetFilmes.Modelo
 
         [Display(Name ="Gênero")]
         [StringLength(30, MinimumLength = 3)]
-      
-        [Required(ErrorMessage ="Digite o gênero do filme")]
+         [Required(ErrorMessage ="Digite o gênero do filme")]
         public string Genero { get; set; } = string.Empty;
         
         

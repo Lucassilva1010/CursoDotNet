@@ -32,13 +32,22 @@ namespace AulaAspNetFilmes.Pages.Filmes
 
         public async Task OnGetAsync()
         {
-            var filmes = from m in _context.Filme select m; 
+
+            var filmes = from m in _context.Filme 
+                         select m; 
 
             if (!string.IsNullOrWhiteSpace(TermoBusca))
             {
                 filmes = filmes.Where(f => f.Titulo.Contains(TermoBusca));
             }
-            Filme = await _context.Filme.ToListAsync();
+
+            if (!string.IsNullOrWhiteSpace(FilmeGenero))
+            {
+                filmes = filmes.Where(f => f.Genero == FilmeGenero);
+            }
+            Genero = new SelectList(await _context.Filme.Select(f => f.Genero).Distinct().ToListAsync());
+            //Filme = await _context.Filme.ToListAsync();
+            Filme = await filmes.ToListAsync();
 
         }
     }

@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using AulasAspNetMVC.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<AulasAspNetMVCContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AulasAspNetMVCContext") ?? throw new InvalidOperationException("Connection string 'AulasAspNetMVCContext' not found.")));
 

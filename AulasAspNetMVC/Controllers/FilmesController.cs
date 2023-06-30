@@ -4,10 +4,14 @@ namespace AulasAspNetMVC.Controllers
 {
     public class FilmesController : Controller
     {
-        public string Index()
+        public IActionResult Index()
         {
-            return "Essa é minha action padrdão vindo da Controllers";
+            ViewData["Title"] = "Filmes";
+            return View();
+            // return "Essa é minha action padrdão vindo da Controllers";
         }
-        public string Benvindo(string nome, int numero) => $"Criando a minhas propria Actions {nome} - {numero} ";
+        public IActionResult BenVindoo(string nome, int numero) {
+           return View( );
+        }
     }
 }

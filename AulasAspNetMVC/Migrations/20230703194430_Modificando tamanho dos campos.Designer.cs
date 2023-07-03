@@ -4,6 +4,7 @@ using AulasAspNetMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AulasAspNetMVC.Migrations
 {
     [DbContext(typeof(AulasAspNetMVCContext))]
-    partial class AulasAspNetMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20230703194430_Modificando tamanho dos campos")]
+    partial class Modificandotamanhodoscampos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

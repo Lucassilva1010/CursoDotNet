@@ -20,11 +20,47 @@ namespace AulasAspNetMVC.Controllers
         }
 
         // GET: FilmesNovoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string texto, string genero)
         {
-              return _context.FilmesNovo != null ? 
-                          View(await _context.FilmesNovo.ToListAsync()) :
-                          Problem("Entity set 'AulasAspNetMVCContext.FilmesNovo'  is null.");
+            
+            
+            //Query Genero 
+            IQueryable<string> generos = from m in _context.FilmesNovo
+                                         orderby m.Genero
+                                         select m.Genero;
+            //Query filme
+            var filmes = from m in _context.FilmesNovo
+                         select m;
+
+            //filtro filme
+            if (!string.IsNullOrWhiteSpace(texto))
+            {
+                filmes = filmes.Where(s => s.Titulo!.Contains(texto));
+            }
+
+            //filtro genero
+            if (!string.IsNullOrWhiteSpace(genero))
+            {
+                filmes = filmes.Where(s => s.Genero == genero);
+            }
+
+
+            //View Modls
+            var filmesViewModls = new FilmesViewModels
+            {
+                Filmes =  await filmes.ToListAsync(),
+                Genero = new SelectList(await generos.Distinct().ToListAsync())
+            };
+
+
+            return View(filmesViewModls);         
+            
+            
+            // return View(await filmes.ToListAsync());
+
+            //_context.FilmesNovo != null ?
+            //          View(await _context.FilmesNovo.ToListAsync()) :
+            //          Problem("Entity set 'AulasAspNetMVCContext.FilmesNovo'  is null.");
         }
 
         // GET: FilmesNovoes/Details/5
@@ -56,7 +92,7 @@ namespace AulasAspNetMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Titulo,DataLancamento,Genero,Valor")] FilmesNovo filmesNovo)
+        public async Task<IActionResult> Create([Bind("Id,Titulo,DataLancamento,Genero,Valor, Pontos")] FilmesNovo filmesNovo)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +124,7 @@ namespace AulasAspNetMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,DataLancamento,Genero,Valor")] FilmesNovo filmesNovo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,DataLancamento,Genero,Valor,Pontos")] FilmesNovo filmesNovo)
         {
             if (id != filmesNovo.Id)
             {

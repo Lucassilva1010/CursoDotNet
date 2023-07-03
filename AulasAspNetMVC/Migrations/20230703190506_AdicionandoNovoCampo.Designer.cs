@@ -4,6 +4,7 @@ using AulasAspNetMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AulasAspNetMVC.Migrations
 {
     [DbContext(typeof(AulasAspNetMVCContext))]
-    partial class AulasAspNetMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20230703190506_AdicionandoNovoCampo")]
+    partial class AdicionandoNovoCampo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,8 +37,7 @@ namespace AulasAspNetMVC.Migrations
 
                     b.Property<string>("Genero")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Pontos")
                         .HasColumnType("int");
